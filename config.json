@@ -1,0 +1,12 @@
+{
+  "webSave": {
+    "proxy": "https://0.0.0.0"
+  },
+  "sql2Struct": {
+    "username": "root",
+    "password": "root",
+    "host": "localhost:3306",
+    "charset": "utf8mb4",
+    "type": "mysql"
+  }
+}
