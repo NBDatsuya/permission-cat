@@ -26,7 +26,7 @@ type StructTemplate struct {
 type StructColumn struct {
 	Name    string
 	Type    string
-	Tag     string
+	Tag     template.HTML
 	Comment string
 }
 
@@ -43,10 +43,11 @@ func (t *StructTemplate) AssemblyColumns(tableColumns []*TableColumn) []*StructC
 	templateColumns := make([]*StructColumn, 0, len(tableColumns))
 
 	for _, column := range tableColumns {
+		jsonTag := word.UnderscoreToLowerCamelCase(column.ColumnName)
 		templateColumns = append(templateColumns, &StructColumn{
 			Name:    column.ColumnName,
 			Type:    DBTypeToStructType[column.DataType],
-			Tag:     fmt.Sprintf("`json:"+"%s"+"`", column.ColumnName),
+			Tag:     template.HTML(fmt.Sprintf("`json:\"%s\"`", jsonTag)), // 直接拼接字符串，避免转义
 			Comment: column.ColumnComment,
 		})
 	}
